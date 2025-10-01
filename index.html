@@ -1,105 +1,236 @@
+<!--
+  Nikola Kirsten Mazzarella | Personal Website
+  SpaceX-style theme with blended gradient + background image
+  ISU-inspired colors and accessible single-page design
+-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nikola Mazzarella | Personal Website</title>
+  <meta name="description" content="Nikola Kirsten Mazzarella | Master’s student at ISU | NASA experience in systems, modeling & space mission leadership">
+  <meta name="author" content="Nikola Kirsten Mazzarella">
+  <meta property="og:title" content="Nikola Kirsten Mazzarella | Personal Website">
+  <meta property="og:description" content="Master’s student at ISU | NASA experience in systems, modeling & space mission leadership">
+  <meta property="og:type" content="website">
+  <title>Nikola Kirsten Mazzarella | Personal Website</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
   <style>
+    :root {
+      --isu-blue: #0b3d91;
+      --isu-gold: #f0b429;
+      --isu-ink: #0d1b2a;
+      --isu-sky: #e6f1ff;
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f5f7fa;
-      color: #333;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #e0e0e0;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      background: linear-gradient(135deg, rgba(11,12,16,0.6), rgba(31,40,51,0.6), rgba(13,27,42,0.6), rgba(0,0,0,0.6)),
+                  url('Mars_Web_8fafe15a48.jpg') no-repeat center center fixed;
+      background-size: cover;
+      animation: gradientShift 20s ease infinite;
     }
 
-    header {
-      background: linear-gradient(135deg, #004aad, #0077b5);
-      color: white;
-      text-align: center;
-      padding: 3rem 1rem;
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
+    a { text-decoration: none; color: var(--isu-gold); }
+    a:hover { text-decoration: underline; }
 
-    header p {
-      font-size: 1.2rem;
-      margin-top: 0.5rem;
-    }
+    .navbar { backdrop-filter: blur(10px); }
+    header { text-align: center; padding: 100px 20px; }
+    header h1 { font-size: 3rem; color: #fff; letter-spacing: 2px; }
+    header p { font-size: 1.3rem; color: var(--isu-gold); }
 
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
+    section { max-width: 900px; margin: 40px auto; padding: 30px; background: rgba(15,15,15,0.7); border-radius: 15px; box-shadow: 0 0 20px rgba(240,180,41,0.3); }
+    section h2 { font-size: 2rem; color: var(--isu-gold); margin-bottom: 20px; border-bottom: 2px solid var(--isu-gold); display: inline-block; padding-bottom: 5px; }
+    section p, li { font-size: 1.1rem; color: #e0e0e0; }
 
-    section {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+    .project-card { margin-bottom: 20px; }
+    .timeline { list-style: none; padding-left: 0; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 4px; background: var(--isu-gold); }
+    .timeline li { position: relative; padding-left: 50px; margin-bottom: 30px; }
+    .timeline li::before { content: ''; position: absolute; left: 10px; top: 0; width: 20px; height: 20px; background: var(--isu-gold); border-radius: 50%; }
+    
+    footer { text-align: center; padding: 20px; color: #c5c6c7; font-size: 0.9rem; }
 
-    section h2 {
-      margin-top: 0;
-      color: #004aad;
-    }
-
-    .btn {
-      display: inline-block;
-      background: #0077b5;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-
-    .btn:hover {
-      background: #005c82;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #e9edf2;
-      font-size: 0.9rem;
-      color: #666;
-    }
+    #skipLink { position: absolute; left: -999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+    #skipLink:focus { left: 10px; top: 10px; width: auto; height: auto; background: #000; color: #fff; padding: 5px 10px; z-index: 1000; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Nikola Mazzarella</h1>
-    <p>Personal Business Website</p>
-  </header>
+  <a id="skipLink" href="#main">Skip to content</a>
 
-  <main>
-    <section>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" aria-label="Main navigation">
+    <div class="container">
+      <a class="navbar-brand" href="#">NKM</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#cv">CV</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><button class="btn btn-sm btn-outline-light ms-2" id="themeToggle">Toggle Theme</button></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- Hero -->
+    <header>
+      <h1>Nikola Kirsten Mazzarella</h1>
+      <p>Master’s student at ISU | NASA experience in systems, modeling & space mission leadership</p>
+      <div class="mt-3">
+        <a href="#projects" class="btn btn-outline-warning btn-lg me-2">Projects</a>
+        <a href="#cv" class="btn btn-outline-warning btn-lg me-2" id="cvBtn" style="display:none;">Open CV</a>
+        <span id="cvNote" class="text-warning">Add cv.pdf to enable the CV button</span>
+        <a href="#contact" class="btn btn-outline-warning btn-lg">Contact</a>
+      </div>
+      <p class="mt-2 small text-light">Unofficial student page. “International Space University” named here for study use only.</p>
+    </header>
+
+    <!-- About -->
+    <section id="about">
       <h2>About Me</h2>
-      <p>
-        Welcome! I’m Nikola Mazzarella. This website serves as my personal business page
-        where you can connect with me and learn more about my professional background. 
-        Feel free to reach out via LinkedIn!
-      </p>
+      <p>I am pursuing a Master of Space Exploration at ISU, with experience in NASA CubeSat missions, computational modeling, and strategic planning. My goal is to support safe and sustainable human spaceflight missions.</p>
+      <p><strong>Focus Areas:</strong> Space mission planning, Systems integration, Computational modeling, Human spaceflight</p>
+      <p><strong>Tools:</strong> Python, Geant4, AMMPER, CAD (basic), Microsoft Office, SharePoint, Data analysis</p>
     </section>
 
-    <section>
-      <h2>Connect</h2>
-      <p>Check out my professional profile and connect with me on LinkedIn:</p>
-      <a href="https://www.linkedin.com/in/nikola-mazzarella-388803274/" 
-         target="_blank" 
-         class="btn">Visit My LinkedIn</a>
+    <!-- Projects -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="project-card">
+        <h4>VIA-SEEs CubeSat Mission</h4>
+        <p>Managed NASA CubeSat mission integrating science and engineering requirements</p>
+        <ul>
+          <li>Project management</li>
+          <li>Requirements verification</li>
+          <li>Successful mission design & planning</li>
+        </ul>
+      </div>
+      <div class="project-card">
+        <h4>AMMPER Simulation Framework</h4>
+        <p>Developed agent-based models for space radiation effects on biological systems</p>
+        <ul>
+          <li>Python modeling</li>
+          <li>Geant4 integration</li>
+          <li>Validated against experimental data</li>
+        </ul>
+      </div>
+      <div class="project-card">
+        <h4>Strategic Planning & Integration at NASA HQ</h4>
+        <p>Supported strategic communications and stakeholder engagement for NASA programs</p>
+        <ul>
+          <li>Policy communication</li>
+          <li>Audience analysis</li>
+          <li>Knowledge management tools</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <h2>Experience</h2>
+      <ul class="timeline">
+        <li>
+          <strong>Project Manager Intern</strong>, VIA-SEEs Small Satellite Mission, NASA Hawaii Space Grant Consortium (01/2024 – 06/2024)<br>
+          Directed mission planning and technical development, coordinated launch integration
+        </li>
+        <li>
+          <strong>Computational Modeling Intern</strong>, NASA Ames Research Center (06/2025 – 08/2025)<br>
+          Built and validated simulation frameworks for biological response to space radiation
+        </li>
+        <li>
+          <strong>Strategic Planning & Integration Intern</strong>, NASA Headquarters (06/2024 – 08/2024)<br>
+          Supported stakeholder engagement and communication strategy
+        </li>
+      </ul>
+    </section>
+
+    <!-- CV -->
+    <section id="cv">
+      <h2>CV</h2>
+      <p id="cvNote">Add cv.pdf to enable the CV button</p>
+      <a href="cv.pdf" target="_blank" class="btn btn-outline-warning" id="cvBtn" style="display:none;">Open CV</a>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Email: <span id="email">nikola.mazarella@community.isunet.edu</span></p>
+      <a href="mailto:nikola.mazarella@community.isunet.edu" class="btn btn-outline-warning me-2" id="mailLink">Email</a>
+      <button class="btn btn-outline-warning" id="copyEmailBtn">Copy email</button>
+    </section>
+
+    <!-- Edit Checklist -->
+    <section id="edit-checklist">
+      <h2>Edit Checklist</h2>
+      <ul>
+        <li>Check profile image</li>
+        <li>Update CV if changed</li>
+        <li>Add new projects</li>
+        <li>Verify links</li>
+        <li>Confirm theme toggle works</li>
+      </ul>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
-    © 2025 Nikola Mazzarella. All rights reserved.
+    <p>© <span id="year"></span> Nikola Kirsten Mazzarella | Unofficial student page</p>
   </footer>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme) body.setAttribute('data-bs-theme', savedTheme);
+    themeToggle.addEventListener('click', () => {
+      const current = body.getAttribute('data-bs-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      body.setAttribute('data-bs-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // CV check
+    fetch('cv.pdf', { method: 'HEAD' }).then(res => {
+      if(res.ok) {
+        document.getElementById('cvBtn').style.display = 'inline-block';
+        document.getElementById('cvNote').style.display = 'none';
+      }
+    }).catch(() => {});
+
+    // Copy email
+    const copyBtn = document.getElementById('copyEmailBtn');
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(document.getElementById('email').textContent);
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => { copyBtn.textContent = 'Copy email'; }, 2000);
+    });
+  </script>
 </body>
 </html>
